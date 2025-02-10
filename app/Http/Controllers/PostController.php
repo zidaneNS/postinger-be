@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\View\View;
 
 class PostController extends Controller implements HasMiddleware
 {
@@ -66,6 +64,12 @@ class PostController extends Controller implements HasMiddleware
         $post->save($validatedFields);
 
         return response(["post" => $post]);
+    }
+
+    public function myposts(Request $request)
+    {
+        $posts = $request->user()->posts;
+        return response($posts);
     }
 
     /**
